@@ -25,6 +25,7 @@ import Page from "../components/Page";
 import Footer from "../components/Footer";
 import Subtitle from "../components/Subtitle";
 import Warnings from "../components/Warnings";
+import DashboardWelcome from "../components/DashboardWelcome";
 import AllocationService from "../services/allocation";
 import {
   checkCustomWindow,
@@ -236,6 +237,8 @@ const ReportsPage = () => {
           <RefreshIcon />
         </IconButton>
       </Header>
+
+      <DashboardWelcome />
 
       {!loading && errors.length > 0 && (
         <div style={{ marginBottom: 20 }}>
