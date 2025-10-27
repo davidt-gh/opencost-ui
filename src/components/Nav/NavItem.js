@@ -1,53 +1,96 @@
 import * as React from "react";
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { ListItem, ListItemIcon, ListItemText, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/styles";
 
-const NavItem = ({ active, href, name, onClick, secondary, title, icon }) => {
-  const useStyles = makeStyles({
-    root: {
-      cursor: "pointer",
-      "&:hover": {
-        backgroundColor: "#ebebeb",
-      },
-      "&:selected": {
-        backgroundColor: "#e1e1e1",
-      },
+const useStyles = makeStyles((theme) => ({
+  root: {
+    borderRadius: 12,
+    margin: '4px 0',
+    padding: '12px 16px',
+    cursor: "pointer",
+    transition: 'all 0.2s ease-in-out',
+    position: 'relative',
+    overflow: 'hidden',
+    "&:hover": {
+      backgroundColor: theme.palette.action.hover,
+      transform: 'translateX(4px)',
+      boxShadow: '0 4px 12px rgba(37, 99, 235, 0.15)',
     },
-    text: {
-      maxWidth: 200,
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-      whiteSpace: "nowrap",
+    "&:before": {
+      content: '""',
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      bottom: 0,
+      width: 0,
+      background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+      transition: 'width 0.3s ease',
     },
-    activeIcon: {
-      color: "#346ef2",
-      minWidth: 36,
+  },
+  active: {
+    backgroundColor: 'rgba(37, 99, 235, 0.08)',
+    color: theme.palette.primary.main,
+    "&:before": {
+      width: '4px',
     },
-    activeText: {
-      color: "#346ef2",
+    "&:hover": {
+      backgroundColor: 'rgba(37, 99, 235, 0.12)',
     },
-    icon: {
-      color: "#4e4e4e",
-      minWidth: 36,
+  },
+  icon: {
+    minWidth: 40,
+    color: theme.palette.text.secondary,
+    transition: 'color 0.2s ease',
+  },
+  activeIcon: {
+    color: theme.palette.primary.main,
+    minWidth: 40,
+  },
+  text: {
+    margin: 0,
+    '& .MuiListItemText-primary': {
+      fontSize: '0.875rem',
+      fontWeight: 500,
+      lineHeight: 1.4,
     },
-  });
+    '& .MuiListItemText-secondary': {
+      fontSize: '0.75rem',
+      lineHeight: 1.3,
+      marginTop: '2px',
+      opacity: 0.8,
+    },
+  },
+  activeText: {
+    '& .MuiListItemText-primary': {
+      color: theme.palette.primary.main,
+      fontWeight: 600,
+    },
+  },
+  link: {
+    textDecoration: "none", 
+    color: "inherit",
+    display: 'block',
+  },
+}));
+
+const NavItem = ({ active, href, name, onClick, secondary, title, icon, description }) => {
   const classes = useStyles();
 
-  const listItemIconClasses = { root: classes.icon };
-  const listItemTextClasses = {
-    secondary: classes.text,
-  };
-
+  const listItemClasses = [classes.root];
   if (active) {
-    listItemIconClasses.root = classes.activeIcon;
-    listItemTextClasses.primary = classes.activeText;
+    listItemClasses.push(classes.active);
   }
 
-  const renderListItemCore = () => (
+  const iconClasses = active ? classes.activeIcon : classes.icon;
+  const textClasses = [classes.text];
+  if (active) {
+    textClasses.push(classes.activeText);
+  }
+
+  const renderListItem = () => (
     <ListItem
-      className={active ? "active" : ""}
-      classes={{ root: classes.root }}
+      className={listItemClasses.join(' ')}
       onClick={(e) => {
         if (onClick) {
           onClick();
@@ -56,22 +99,29 @@ const NavItem = ({ active, href, name, onClick, secondary, title, icon }) => {
       }}
       selected={active}
       title={title}
+      disableRipple
     >
-      <ListItemIcon classes={listItemIconClasses}>{icon}</ListItemIcon>
+      <ListItemIcon className={iconClasses}>
+        {icon}
+      </ListItemIcon>
       <ListItemText
-        classes={listItemTextClasses}
+        className={textClasses.join(' ')}
         primary={name}
-        secondary={secondary}
+        secondary={description && (
+          <Typography variant="caption" color="textSecondary">
+            {description}
+          </Typography>
+        )}
       />
     </ListItem>
   );
 
   return href && !active ? (
-    <Link style={{ textDecoration: "none", color: "inherit" }} to={`${href}`}>
-      {renderListItemCore()}
+    <Link className={classes.link} to={`/${href}`}>
+      {renderListItem()}
     </Link>
   ) : (
-    renderListItemCore()
+    renderListItem()
   );
 };
 

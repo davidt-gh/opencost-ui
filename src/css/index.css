@@ -1,20 +1,176 @@
 @import '../../node_modules/material-design-icons-iconfont/dist/material-design-icons.css';
 
+* {
+  box-sizing: border-box;
+}
+
 body {
-    background-color: #F3F3F3;
-    display: flex;
-    flex-flow: column;
-    font-family: 'Roboto', sans-serif;
-    margin: 0px;
-    overflow-y: scroll;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  display: flex;
+  flex-flow: column;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  margin: 0px;
+  overflow-y: scroll;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body .page-container {
-    display: flex;
-    flex-flow: column;
-    flex-grow: 1;
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  min-height: 100vh;
 }
 
+/* Modern scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Enhanced recharts tooltip */
 .recharts-tooltip-wrapper {
-    z-index: 1000;
+  z-index: 1000;
+}
+
+.recharts-default-tooltip {
+  background: white !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Modern focus states */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Improved table styling */
+.MuiTableCell-root {
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.MuiTableHead-root .MuiTableCell-root {
+  background-color: #f8fafc !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+}
+
+/* Enhanced paper components */
+.MuiPaper-root {
+  background-color: white !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Modern loading spinner */
+.MuiCircularProgress-root {
+  color: #2563eb !important;
+}
+
+/* Custom utility classes */
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cost-positive {
+  color: #10b981 !important;
+}
+
+.cost-negative {
+  color: #ef4444 !important;
+}
+
+.cost-neutral {
+  color: #64748b !important;
+}
+
+/* Animation utilities */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Enhanced hover effects */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Status indicators */
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.status-indicator.success {
+  background-color: #10b981;
+}
+
+.status-indicator.error {
+  background-color: #ef4444;
+}
+
+.status-indicator.warning {
+  background-color: #f59e0b;
+}
+
+.status-indicator.info {
+  background-color: #3b82f6;
 }

@@ -3,40 +3,58 @@ import * as React from "react";
 import { useLocation } from "react-router-dom";
 import { SidebarNav } from "./Nav/SidebarNav";
 
-const useStyles = makeStyles({
-  wrapper: {
-    position: "relative",
-    height: "100vh",
-    flexGrow: 1,
-    overflowX: "auto",
-    paddingLeft: "2rem",
-    paddingRight: "rem",
-    paddingTop: "2.5rem",
+const useStyles = makeStyles((theme) => ({
+  body: {
+    display: "flex",
+    margin: "0px",
+    backgroundColor: theme.palette.background.default,
+    minHeight: "100vh",
   },
-  flexGrow: {
+  content: {
     display: "flex",
     flexFlow: "column",
     flexGrow: 1,
+    position: "relative",
   },
-  body: {
-    display: "flex",
-    overflowY: "scroll",
-    margin: "0px",
-    backgroundColor: "f3f3f3",
+  wrapper: {
+    position: "relative",
+    flexGrow: 1,
+    padding: '40px 48px',
+    overflowX: "auto",
+    overflowY: "auto",
+    maxWidth: "100%",
+    background: 'transparent',
   },
-});
+  contentContainer: {
+    maxWidth: '1400px',
+    margin: '0 auto',
+    width: '100%',
+  },
+  // Responsive design
+  '@media (max-width: 1024px)': {
+    wrapper: {
+      padding: '32px 24px',
+    },
+  },
+  '@media (max-width: 768px)': {
+    wrapper: {
+      padding: '24px 16px',
+    },
+  },
+}));
 
 const Page = (props) => {
   const classes = useStyles();
-
   const { pathname } = useLocation();
 
   return (
     <div className={classes.body}>
       <SidebarNav active={pathname} />
-      <div className={classes.flexGrow}>
+      <div className={classes.content}>
         <div className={classes.wrapper}>
-          <div className={classes.flexGrow}>{props.children}</div>
+          <div className={`${classes.contentContainer} fade-in`}>
+            {props.children}
+          </div>
         </div>
       </div>
     </div>
